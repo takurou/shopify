@@ -4,7 +4,7 @@
 {% for product in collection.products %}
   {% if product.available %}
   <li class="product-item">
-    {% if article.image.src == nil %}
+    {% if product.featured_image == nil %}
       <figure class="product-thumbnail"><img src="noImage.jpg"></figure>
     {% else %}
       <figure class="product-thumbnail"><img src="{{ product.featured_image | img_url:'300x300' }}"></figure>
