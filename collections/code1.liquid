@@ -1,23 +1,23 @@
 {% assign collection = collections[section.settings.collection] %}
 
 <ul id="productsList">
-{% for product in collection.products %}
-  {% if product.available %}
-  <li class="product-item">
-    {% if article.image.src == nil  %}
-    	<figure class="product-thumbnail"><img src="noImage.jpg"></figure>
-	  {% else %}
-    	<figure class="product-thumbnail"><img src="{{ product.featured_image | img_url:'300x300' }}"></figure>
-    {% endif %}
-    <h3 class="product-title">{{ product.title }}</h3>
-    <div class="product-price">
-      {% if product.price_varies %}
-        {{ product.price_min | money }} 〜 {{ product.price_max | money }}
-      {% else %}
-        {{ product.price | money }}
-      {% endif %}
-    </div>
-  </li>
-  {% endif %}
-{% endfor %}
+	{% for product in collection.products %}
+		{% if product.available %}
+			<li class="product-item">
+			{% if article.image.src == nil  %}
+				<figure class="product-thumbnail"><img src="noImage.jpg"></figure>
+			{% else %}
+				<figure class="product-thumbnail"><img src="{{ product.featured_image | img_url:'300x300' }}"></figure>
+			{% endif %}
+			<h3 class="product-title">{{ product.title }}</h3>
+			<div class="product-price">
+			{% if product.price_varies %}
+				{{ product.price_min | money }} 〜 {{ product.price_max | money }}
+			{% else %}
+				{{ product.price | money }}
+			{% endif %}
+			</div>
+			</li>
+		{% endif %}
+	{% endfor %}
 </ul>
