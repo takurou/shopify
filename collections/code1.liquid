@@ -7,7 +7,7 @@
     {% if product.featured_image == nil %}
       <figure class="product-thumbnail"><img src="noImage.jpg"></figure>
     {% else %}
-      <figure class="product-thumbnail"><img src="{{ product.featured_image | img_url:'300x300' }}"></figure>
+      <figure class="product-thumbnail"><img src="{{ product.featured_image | img_url:'300x' }}"></figure>
     {% endif %}
     <h3 class="product-title">{{ product.title }}</h3>
     <div class="product-price">
