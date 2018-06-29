@@ -1,0 +1,37 @@
+<div id="mainProducts">
+  <h2 class="mainProducts-title">{{ product.title }}</h2>
+  <div class="mainProducts-image"><img src="{{ product.featured_image | img_url:'300x' }}"></div>
+  {% if product.variants.size > 1 %}
+    <select id="mainProducts-select">
+      {% for variant in product.variants %}
+        <option class="mainProducts-option" data-sku="{{ variant.sku }}" value="{{ variant.id }}" data-price="{{ variant.price }}" data-title="{{ product.title }}-{{ variant.title }}">{{ variant.title }}</option>
+      {% endfor %}
+    </select>
+  {% else %}
+    <div class="mainProducts-price">{{ product.price | money }}</div>
+  {% endif %}
+</div>
+<hr>
+
+{% if product.metafields['bundle'].products != nil %}
+{% assign bundle_products = product.metafields['bundle'].products | split:',' %}
+<h4>関連商品</h4>
+<ul id="bundleProducts">
+  {% for handle in bundle_products %}
+  {% assign bundle = all_products[handle] %}
+  {% if bundle.available %}
+  {% for variant in bundle.variants %}
+    <li class="bundle-item" data-type="{{ bundle.type }}" data-sku="{{ variant.sku }}" data-variant="{{ variant.id }}" data-price="{{ variant.price }}">{% if variant.title == "Default Title" %}{{ bundle.title }}{% else %}{{ bundle.title }}<br> - {{ variant.title }}{% endif %} (+{{ variant.price | money }})</li>
+  {% endfor %}
+  {% endif %}
+  {% endfor %}
+</ul>
+{% endif %}
+
+<div id="totalPriceBox">総額 <span id="totalPrice">{{ product.variants[0].price | money }}</span></div>
+
+{% form 'product', product, class:form_classes %}
+  <input name="id[]" value="{{product.variants[0].id}}" id="mainProductsItem"  type="hidden" data-sku="{{product.variants[0].sku}}" data-type="{{ product.type }}" data-title="{% if variant.title == "Default Title" %}{{ bundle.title }}{% else %}{{ bundle.title }}-{{ product.variants[0].title }}{% endif %}" data-price="{{product.variants[0].price}}">
+  <div id="PurchaseBundleItems"></div>
+  <button type="submit" name="add" id="AddToCart" class="btn product-form__cart-submit"><span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span></button>
+{% endform %}
