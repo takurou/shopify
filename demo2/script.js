@@ -3,6 +3,7 @@ var ecArray = new Array;
 $(function(){
   bundleItemClick();
   mainProductsSelect();
+  // 拡張eコマースを使用して、「商品がカートに追加された回数」を送信
   $('#AddToCart').on('click',function(){
     ecAddCartSend();
   });
@@ -48,6 +49,7 @@ function totalPrice(){
   });
   var totalPrice = (total/100).toString().replace(/(\d)(?=(\d{3})+$)/g , '$1,');
   $('#totalPrice').text('¥'+totalPrice);
+  // ecArrayMakeを動かす
   ecArrayMake();
 }
 
