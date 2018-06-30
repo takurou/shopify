@@ -21,7 +21,7 @@
   {% assign bundle = all_products[handle] %}
   {% if bundle.available %}
   {% for variant in bundle.variants %}
-    <li class="bundle-item" data-type="{{ bundle.type }}" data-sku="{{ variant.sku }}" data-variant="{{ variant.id }}" data-price="{{ variant.price }}">{% if variant.title == "Default Title" %}{{ bundle.title }}{% else %}{{ bundle.title }}<br> - {{ variant.title }}{% endif %} (+{{ variant.price | money }})</li>
+    <li class="bundle-item" data-type="{{ bundle.type }}" data-sku="{{ variant.sku }}" data-variant="{{ variant.id }}" data-price="{{ variant.price }}">{% if bundle.variants.size > 1 %}{{ bundle.title }}{% else %}{{ bundle.title }}<br> - {{ variant.title }}{% endif %} (+{{ variant.price | money }})</li>
   {% endfor %}
   {% endif %}
   {% endfor %}
